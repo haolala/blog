@@ -1,0 +1,228 @@
+1/发送短信
+请求方法:GET
+请求URL:/api/v1.0/smscode/mobile,image_code,imagecode_id,
+请求参数:
+参数名     是否必须        描述
+mobile      是       用户输入的手机号
+text        是       用户输入的图片验证码内容
+id          是       用户输入的图片验证码对应的编号
+返回结果:
+正确情况下:
+{
+    errno:RET.OK,
+    errmsg:"OK"
+}
+错误情况下:
+{
+    errno:RET.THIRDERR
+    errmsg:"发送短信失败"
+}
+
+2/注册用户
+请求方法:POST
+请求URL:/api/v1.0/users
+请求参数:
+参数名      是否必须       描述
+mobile      是          用户注册手机号
+sms_code    是          用户输入的短信验证码
+password    是          用户输入的注册密码
+返回结果:
+正确:
+{
+    errno:RET.OK
+    errmsg:"注册成功"
+}
+错误:
+{
+    errno:RET.DBERR
+    errmsg:"手机号或密码错误"
+}
+
+3/ 用户登录
+请求URL:/api/v1.0/sessions
+请求方法:POST
+请求参数:
+参数      是否必须        参数说明
+mobile      是           用户登录手机号
+password    是           用户登录输入密码
+返回结果:
+正确:
+{
+    errno=RET.OK,
+    errmsg="OK",
+    data=user.id
+}
+错误:
+{
+    errno=RET.ERR,
+    errmsg="error"
+}
+
+4/获取用户信息
+请求URL:/api/v1.0/user
+请求方法:GET
+请求参数: 需要用户id,可以通过g变量获取
+返回结果
+正确:
+{
+    errno=ERT.OK
+    errmsg="OK"
+    data=user.to_dict()
+}
+错误:
+{
+    errno=RET.DBERR
+    errmsg="无效操作"
+}
+
+
+5/修改用户信息
+请求url:/api/v1.0/user/name
+请求方法:put
+请求参数:
+参数      是否必须　   参数描述
+name        是       用户修改的用户名信息，
+返回结果,
+正确:
+{
+   errno=ERT.Ok,
+   errmsg="OK"
+   data={"name":name}
+}
+错误:
+{
+    errno=ERT.DBERRm
+    errmsg="更新用户信息失败"
+}
+
+6 上传用户头像
+请求url:/api/v1.0/user/avatar
+请求方式:POST
+请求参数:
+参数      是否必须    参数描述
+avatar      是       用户头像的图片文件
+返回结果:
+正确:七牛云空间的外链域名,和调用七牛云上唇图片的返回结果,(图片名称)
+{
+    errno=RET.OK,
+    errmsg="OK",
+    data={"avatar_url":image_url}
+}
+错误:
+{
+    errno=ERT.THIRDERR,
+    errmsg="图片上传失败"
+}
+
+
+7/实名认证
+请求url:/api/v1.0/user/auth
+请求方法:post
+请求参数:
+参数      是否必须    参数描述
+real_name   是       用户输入的姓名信息
+id_card     是       用户输入的身份证号码信息
+返回结果:
+正确:
+{
+    errno=RET.OK,
+    errmsg="OK"
+}
+错误:
+{
+    errno=RET.DBERR,
+    errmsg="实名认证失败"
+}
+
+8/获取用户实名信息
+请求url:/api/v1.0/user/auth
+请求方法:GET
+请求参数:user.id
+返回结果:
+正确:
+{
+    errno=RET.OK,
+    errmsg="OK",
+    data=user.auth_to_dict()
+}
+错误:
+{
+    errno=RET.DATAERR,
+    errmsg="查询用户实名信息异常"
+}
+
+
+
+9 /获取
+城区信息
+请求url:get
+请求参数无
+
+
+
+
+
+10/发布新房源
+情求url:/qpi/v1.0/houses
+请求方法:post
+请求参数:
+参数:
+参数      是否必填        参数说明
+user_id                 房东
+title                   标题
+price                   价格
+area_id                 房屋所属区域
+address                 地址
+room_count              房间数量
+acreaget                面积
+unit                    房型
+capacity                所住人数
+beds                    床位设置
+deposit                 房屋押金
+min_days                最小入住天数
+max_days                最大入住参数
+facility    否           配套设施
+返回结果
+正确
+{
+    errno=RET.OK,
+    errmsg="OK",
+    data={"house_id":house.di}
+}
+错误
+{
+    errno=RET.DBTAERR,
+    errmsg="保存房屋信息异常"
+
+
+}
+
+
+11/上传房屋图片
+请求url:/api/v1.0/houses/<house_id>/images
+请求方法:post
+请求参数:
+参数名     是否必须        参数说明
+house_image 是           房屋图片文件
+house_id    是           房屋id
+返回结果:
+正确:
+{
+    errno=RET.OK,
+    errmsg="OK"
+    data = {'url': 骑牛云外链域名+调用七牛云返回的文件名}
+}
+
+{
+    errno=RET.HTIRDERR,
+}
+
+
+
+
+
+
+
+
+
+
